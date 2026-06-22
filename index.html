@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Global Market: CS2 Skins & Artifacts</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg-deep:     #080B10;
+    --bg-surface:  #0D1117;
+    --bg-card:     #111820;
+    --gold:        #E8A420;
+    --gold-bright: #FFB733;
+    --gold-dim:    #7A5210;
+    --border:      rgba(232,164,32,0.15);
+    --text-primary:#E8EDF4;
+    --text-muted:  #6B7A8D;
+    --text-faint:  #1E2A38;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 55% 38% at 10% 0%,  rgba(232,164,32,.07) 0%, transparent 65%),
+      radial-gradient(ellipse 45% 32% at 90% 100%, rgba(75,105,255,.06) 0%, transparent 65%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── NAV ───────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 60px;
+    background: rgba(8,11,16,.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: .6rem;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.2rem;
+    letter-spacing: .05em; color: var(--text-primary);
+  }
+  .nav-logo em { color: var(--gold); font-style: normal; }
+  .nav-star { color: var(--gold); font-size: 1.3rem; filter: drop-shadow(0 0 7px var(--gold)); }
+  .nav-filters { display: flex; gap: .5rem; }
+  .nav-tag {
+    padding: .3rem .85rem; border-radius: 4px; cursor: pointer;
+    font-size: .75rem; font-weight: 600; letter-spacing: .05em;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--text-muted); transition: all .18s; font-family: 'Inter', sans-serif;
+  }
+  .nav-tag:hover { color: var(--text-primary); border-color: #2A3A4A; }
+  .nav-tag.active {
+    background: rgba(232,164,32,.1); color: var(--gold);
+    border-color: var(--gold-dim);
+  }
+  .nav-search {
+    display: flex; align-items: center; gap: .5rem;
+    background: rgba(255,255,255,.04); border: 1px solid var(--border);
+    border-radius: 6px; padding: .35rem .75rem;
+  }
+  .nav-search input {
+    background: none; border: none; outline: none;
+    color: var(--text-primary); font-size: .8rem; width: 180px;
+    font-family: 'Inter', sans-serif;
+  }
+  .nav-search input::placeholder { color: var(--text-muted); }
+  .search-icon { color: var(--text-muted); font-size: .9rem; }
+
+  /* ── HERO ──────────────────────────────────────── */
+  .hero {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 4rem 2rem 2.5rem; text-align: center;
+  }
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: .45rem;
+    padding: .28rem .85rem; border-radius: 20px;
+    border: 1px solid var(--border); background: rgba(232,164,32,.05);
+    font-size: .68rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.4rem;
+  }
+  .hero h1 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+    font-weight: 700; line-height: 1.06; letter-spacing: -.01em;
+    color: var(--text-primary); max-width: 720px;
+  }
+  .hero h1 .hl { color: var(--gold); text-shadow: 0 0 36px rgba(232,164,32,.4); }
+  .hero-sub {
+    margin-top: 1rem; max-width: 520px;
+    font-size: .95rem; line-height: 1.65;
+    color: var(--text-muted); font-weight: 300;
+  }
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 2.2rem;
+    padding: 1rem 2.5rem;
+    background: rgba(255,255,255,.025);
+    border: 1px solid var(--border); border-radius: 8px;
+  }
+  .stat { text-align: center; }
+  .stat-n {
+    font-family: 'Rajdhani', sans-serif; font-size: 1.7rem; font-weight: 700;
+    color: var(--gold);
+  }
+  .stat-l { font-size: .65rem; color: var(--text-muted); letter-spacing: .08em; text-transform: uppercase; margin-top: .1rem; }
+
+  /* ── CATALOG ───────────────────────────────────── */
+  .catalog {
+    position: relative; z-index: 1;
+    padding: 1.5rem 2.5rem 4rem;
+  }
+  .catalog-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .catalog-title {
+    font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: 700;
+    letter-spacing: .04em;
+  }
+  .catalog-title span { color: var(--gold); }
+  .catalog-count { font-size: .78rem; color: var(--text-muted); }
+
+  .sort-row {
+    display: flex; align-items: center; gap: .5rem; margin-bottom: 1.75rem;
+  }
+  .sort-label { font-size: .72rem; color: var(--text-muted); letter-spacing: .06em; }
+  .sort-btn {
+    padding: .28rem .75rem; border-radius: 4px; cursor: pointer;
+    font-size: .72rem; font-weight: 600; letter-spacing: .04em;
+    border: 1px solid var(--text-faint); background: transparent;
+    color: var(--text-muted); transition: all .18s; font-family: 'Inter', sans-serif;
+  }
+  .sort-btn.active { color: var(--gold); border-color: var(--gold-dim); background: rgba(232,164,32,.07); }
+
+  /* ── GRID ──────────────────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.1rem;
+  }
+
+  /* ── CARD ──────────────────────────────────────── */
+  .card {
+    background: var(--bg-card);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.06);
+    overflow: hidden; cursor: pointer; position: relative;
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  }
+  .card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--rc); box-shadow: 0 0 12px var(--rc); z-index: 2;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: var(--rc);
+    box-shadow: 0 0 0 1px var(--rc), 0 10px 36px rgba(0,0,0,.55), 0 0 28px color-mix(in srgb, var(--rc) 22%, transparent);
+  }
+  .card.rare .img-wrap::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(130deg, transparent 28%, rgba(255,255,255,.07) 50%, transparent 72%);
+    transform: translateX(-110%); transition: transform .55s ease; pointer-events: none;
+  }
+  .card.rare:hover .img-wrap::after { transform: translateX(110%); }
+
+  .img-wrap {
+    position: relative; height: 150px;
+    background: radial-gradient(ellipse at 50% 60%, rgba(255,255,255,.04) 0%, transparent 70%);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .img-wrap img {
+    max-height: 130px; max-width: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 18px rgba(0,0,0,.7));
+    transition: transform .28s ease, filter .28s ease;
+    user-select: none;
+  }
+  .card:hover .img-wrap img {
+    transform: scale(1.1) translateY(-4px);
+    filter: drop-shadow(0 10px 28px rgba(0,0,0,.8));
+  }
+
+  .card-body { padding: .85rem 1rem 1rem; }
+  .c-weapon {
+    font-size: .63rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: .22rem;
+  }
+  .c-name {
+    font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700;
+    line-height: 1.2; color: var(--text-primary); margin-bottom: .55rem;
+  }
+  .c-meta { display: flex; align-items: center; gap: .4rem; margin-bottom: .65rem; flex-wrap: wrap; }
+  .badge-rarity {
+    font-size: .6rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    padding: .18rem .5rem; border-radius: 3px;
+    color: var(--rc); border: 1px solid var(--rc);
+    background: color-mix(in srgb, var(--rc) 12%, transparent);
+    text-shadow: 0 0 8px var(--rc);
+  }
+  .badge-st {
+    font-size: .58rem; font-weight: 700; letter-spacing: .05em;
+    padding: .18rem .45rem; border-radius: 3px;
+    background: rgba(206,105,14,.14); color: #CE690E;
+    border: 1px solid rgba(206,105,14,.38);
+  }
+  .float-wrap { margin-bottom: .7rem; }
+  .float-top {
+    display: flex; justify-content: space-between;
+    font-size: .62rem; color: var(--text-muted); margin-bottom: .28rem;
+  }
+  .float-top span:last-child { font-family: 'Share Tech Mono', monospace; }
+  .float-track {
+    height: 3px; background: #1E2A38; border-radius: 2px; position: relative; overflow: visible;
+  }
+  .float-fill {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, #5CDB95 0%, #EDF756 40%, #E8A420 70%, #EB4B4B 100%);
+    border-radius: 2px;
+  }
+  .float-pin {
+    position: absolute; top: 50%; transform: translate(-50%, -50%);
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #fff; box-shadow: 0 0 5px rgba(255,255,255,.9);
+    z-index: 3;
+  }
+  .c-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: .65rem; border-top: 1px solid rgba(255,255,255,.05);
+  }
+  .price {
+    font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 700;
+    color: var(--gold); text-shadow: 0 0 14px rgba(232,164,32,.38);
+  }
+  .btn-buy {
+    padding: .38rem .85rem; border-radius: 4px;
+    background: var(--gold); color: #080B10;
+    font-size: .7rem; font-weight: 700; letter-spacing: .06em;
+    border: none; cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: all .18s;
+  }
+  .btn-buy:hover { background: var(--gold-bright); box-shadow: 0 0 14px rgba(255,183,51,.45); }
+
+  /* ── MODAL ─────────────────────────────────────── */
+  .overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,.78); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity .22s;
+  }
+  .overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--bg-surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 0; max-width: 460px; width: 93%;
+    transform: translateY(18px); transition: transform .22s;
+    position: relative; overflow: hidden;
+  }
+  .overlay.open .modal { transform: translateY(0); }
+  .modal-top-bar { height: 4px; width: 100%; }
+  .modal-inner { padding: 1.75rem 2rem 2rem; }
+  .modal-close {
+    position: absolute; top: 1.1rem; right: 1.1rem;
+    background: none; border: none; color: var(--text-muted);
+    font-size: 1.15rem; cursor: pointer; transition: color .15s; line-height: 1;
+  }
+  .modal-close:hover { color: var(--text-primary); }
+  .modal-img-box {
+    display: flex; justify-content: center; align-items: center;
+    height: 180px; margin-bottom: 1.25rem;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,.04) 0%, transparent 70%);
+    border-radius: 6px;
+  }
+  .modal-img-box img { max-height: 160px; max-width: 85%; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,.8)); }
+  .modal-weapon { font-size: .68rem; color: var(--text-muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .3rem; }
+  .modal-name { font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.1rem; }
+  .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 1.5rem; margin-bottom: 1.3rem; }
+  .mf label { font-size: .6rem; color: var(--text-muted); letter-spacing: .08em; text-transform: uppercase; }
+  .mf p { font-size: .88rem; color: var(--text-primary); font-weight: 600; margin-top: .1rem; }
+  .mf p.mono { font-family: 'Share Tech Mono', monospace; font-size: .82rem; }
+  .btn-buy-modal {
+    width: 100%; padding: .72rem; border-radius: 6px;
+    background: var(--gold); color: #080B10;
+    font-size: .88rem; font-weight: 700; letter-spacing: .06em;
+    border: none; cursor: pointer; font-family: 'Rajdhani', sans-serif;
+    transition: all .18s;
+  }
+  .btn-buy-modal:hover { background: var(--gold-bright); box-shadow: 0 0 20px rgba(255,183,51,.5); }
+
+  /* ── FOOTER ────────────────────────────────────── */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 1.2rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    color: var(--text-muted); font-size: .73rem;
+  }
+  .footer-logo { font-family: 'Rajdhani', sans-serif; font-weight: 700; color: var(--gold); letter-spacing: .05em; }
+
+  /* ── EMPTY STATE ───────────────────────────────── */
+  .empty {
+    display: none; flex-direction: column; align-items: center; justify-content: center;
+    padding: 4rem 2rem; color: var(--text-muted); text-align: center; gap: .75rem;
+  }
+  .empty.show { display: flex; }
+  .empty-icon { font-size: 2.5rem; opacity: .35; }
+  .empty p { font-size: .9rem; }
+
+  @media (max-width: 680px) {
+    nav { padding: 0 1rem; flex-wrap: wrap; height: auto; gap: .5rem; padding: .75rem 1rem; }
+    .nav-filters { flex-wrap: wrap; }
+    .catalog { padding: 1rem 1rem 3rem; }
+    .hero { padding: 2.5rem 1rem 2rem; }
+    .hero-stats { gap: 1.5rem; padding: .75rem 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    .modal-inner { padding: 1.25rem 1.25rem 1.5rem; }
+  }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg-deep); }
+  ::-webkit-scrollbar-thumb { background: #1E2A38; border-radius: 3px; }
+
+  /* Toast */
+  .toast {
+    position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 400;
+    background: rgba(8,11,16,.92); color: var(--text-primary);
+    padding: .6rem .9rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.6);
+    opacity: 0; transform: translateY(8px); transition: opacity .18s, transform .18s;
+    pointer-events: none; font-weight:600; font-family: 'Inter', sans-serif;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span class="nav-star">✦</span>
+    <span>Global <em>Market</em></span>
+  </div>
+  <div class="nav-filters" id="navFilters">
+    <button class="nav-tag active" data-filter="all">Todos</button>
+    <button class="nav-tag" data-filter="rifle">Rifles</button>
+    <button class="nav-tag" data-filter="pistola">Pistolas</button>
+    <button class="nav-tag" data-filter="cuchillo">Cuchillos</button>
+    <button class="nav-tag" data-filter="guantes">Guantes</button>
+    <button class="nav-tag" data-filter="smg">SMG</button>
+  </div>
+  <div class="nav-search" id="cartArea">
+    <button class="nav-tag" id="cartToggle" aria-expanded="false">🛒 <span id="cartCount">0</span></button>
+    <div id="cartPanel" style="position:absolute;right:2.5rem;top:60px;min-width:320px;z-index:150;display:none;background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;padding:.75rem;box-shadow:0 10px 30px rgba(0,0,0,.6)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem"><strong>Carrito</strong><button id="cartClose" style="background:none;border:none;color:var(--text-muted);cursor:pointer">✕</button></div>
+      <div id="cartItems" style="max-height:260px;overflow:auto;gap:.5rem;display:flex;flex-direction:column"></div>
+      <div style="border-top:1px solid rgba(255,255,255,.03);padding-top:.6rem;margin-top:.5rem;display:flex;justify-content:space-between;align-items:center">
+        <div style="color:var(--text-muted);font-size:.9rem">Total</div>
+        <div id="cartTotal" style="font-weight:700;color:var(--gold)">$0.00</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-pill">▸ CS2 Skins &amp; Artifacts — Mercado Global</div>
+  <h1>Comprá las mejores<br/><span class="hl">skins de CS2</span></h1>
+  <p class="hero-sub">Float real, rareza verificada, entrega inmediata. El marketplace más completo para el jugador competitivo.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n" id="itemsStat">0</div><div class="stat-l">Ítems</div></div>
+    <div class="stat"><div class="stat-n" id="categoriesStat">0</div><div class="stat-l">Categorías</div></div>
+    <div class="stat"><div class="stat-n">$0.01</div><div class="stat-l">Precio mín.</div></div>
+    <div class="stat"><div class="stat-n">24/7</div><div class="stat-l">Disponible</div></div>
+  </div>
+</header>
+
+<!-- CATALOG -->
+<main class="catalog">
+  <div class="catalog-header">
+    <div class="catalog-title">Catálogo <span id="activeLabel">Completo</span></div>
+    <div class="catalog-count" id="countLabel">0 ítems</div>
+  </div>
+  <div class="sort-row">
+    <span class="sort-label">Ordenar:</span>
+    <button class="sort-btn active" data-sort="default">Destacados</button>
+    <button class="sort-btn" data-sort="price-asc">Precio ↑</button>
+    <button class="sort-btn" data-sort="price-desc">Precio ↓</button>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">
+    <div class="empty-icon">🔍</div>
+    <p>No se encontraron ítems con ese filtro.</p>
+  </div>
+</main>
+
+<!-- PROFILES -->
+<section class="profiles" id="profilesSection" style="padding:1.5rem 2.5rem;border-top:1px solid var(--border);">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.15rem">Perfiles Profesionales</div>
+    <div style="color:var(--text-muted);font-size:.92rem">Configuraciones de jugadores pro</div>
+  </div>
+  <div id="profilesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">✦ GLOBAL MARKET — CS2</div>
+  <div>Una tienda de Fantasia — Galeano Alan Joel.</div>
+</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="maybeClose(event)">
+  <div class="modal" id="modal">
+    <div class="modal-top-bar" id="modalBar"></div>
+    <div class="modal-inner">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-img-box"><img id="modalImg" src="" alt=""/></div>
+      <div class="modal-weapon" id="modalWeapon"></div>
+      <div class="modal-name"   id="modalName"></div>
+      <div class="modal-grid"   id="modalGrid"></div>
+      <button class="btn-buy-modal" onclick="addToCart(currentModalItemId)">Agregar al Carrito — <span id="modalPrice"></span></button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── RARITY CONFIG ──────────────────────────────────────────────────
+const RC = {
+  CONSUMER:   { label:'Consumer Grade', color:'#B0C3D9' },
+  INDUSTRIAL: { label:'Industrial Grade',color:'#5E98D9' },
+  MIL_SPEC:   { label:'Mil-Spec',       color:'#4B69FF' },
+  RESTRICTED: { label:'Restricted',     color:'#8847FF' },
+  CLASSIFIED: { label:'Classified',     color:'#D32CE6' },
+  COVERT:     { label:'Covert',         color:'#EB4B4B' },
+  CONTRABAND: { label:'Contraband',     color:'#E4AE39' },
+};
+
+// Steam CDN image base — all images are official Valve assets served from their CDN
+const CDN = 'https://community.akamai.steamstatic.com/economy/image/';
+
+// Global image map (can be populated automatically)
+const IMG_MAP = {};
+
+function buildImageMap() {
+  const normalize = s => String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  ITEMS.forEach(it => {
+    const fname = normalize(it.arma) + '-' + normalize(it.skin) + '.webp';
+    IMG_MAP[it.id] = fname;
+  });
+}
+
+// Try alternative image source from GitHub repo before final fallback
+function tryAltImg(img, arma, skin, id) {
+  try {
+    if (!img) return;
+    if (img.dataset.triedAll) return imgFallback(img, arma);
+    img.dataset.triedAll = '0';
+    const base = 'https://raw.githubusercontent.com/ByMykel/counter-strike-image-tracker/main/images/';
+    const normalize = s => String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    const candidates = [];
+    if (IMG_MAP[id]) candidates.push(IMG_MAP[id]);
+    candidates.push(normalize(arma) + '-' + normalize(skin) + '.webp');
+    candidates.push(normalize(skin) + '.webp');
+    candidates.push(normalize(arma) + '.webp');
+    candidates.push(id + '.webp');
+
+    let idx = 0;
+    img.onerror = function nextTry() {
+      if (idx >= candidates.length) return imgFallback(img, arma);
+      const fname = candidates[idx++];
+      if (!fname) return nextTry();
+      img.src = base + fname;
+    };
+    img.onerror();
+  } catch (e) { imgFallback(img, arma); }
+}
+
+// Attempt sequential image loads (CDN first, then GitHub candidates) using Image preloader
+function loadBestImage(imgEl, cdnUrl, arma, skin, id) {
+  const base = 'https://raw.githubusercontent.com/ByMykel/counter-strike-image-tracker/main/images/';
+  const normalize = s => String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  const candidates = [];
+  // prefer CDN first
+  if (cdnUrl) candidates.push(cdnUrl);
+  if (IMG_MAP[id]) candidates.push(base + IMG_MAP[id]);
+  candidates.push(base + (normalize(arma) + '-' + normalize(skin) + '.webp'));
+  candidates.push(base + (normalize(skin) + '.webp'));
+  candidates.push(base + (normalize(arma) + '.webp'));
+  candidates.push(base + (id + '.webp'));
+
+  let idx = 0;
+  function tryNext() {
+    if (idx >= candidates.length) return imgFallback(imgEl, arma);
+    const src = candidates[idx++];
+    const loader = new Image();
+    loader.onload = function() { try { imgEl.src = src; } catch(e){ imgFallback(imgEl, arma); } };
+    loader.onerror = function() { tryNext(); };
+    loader.src = src;
+  }
+  tryNext();
+}
+
+// ── CART ─────────────────────────────────────────────────────────
+let CART = [];
+function addToCart(id) {
+  if (!id) return;
+  const item = ITEMS.find(i => i.id === id);
+  if (!item) return;
+  const existing = CART.find(c => c.id === id);
+  if (existing) existing.qty += 1;
+  else CART.push({ id: item.id, name: item.arma + ' | ' + item.skin, price: item.precio, qty: 1 });
+  updateCartUI();
+  // Close modal if open so user can continue inspecting items
+  try { closeModal(); } catch (e) {}
+  // visual confirmation
+  try { showToast(`Añadido: ${item.arma} | ${item.skin}`); } catch (e) {}
+}
+function removeFromCart(id) {
+  CART = CART.filter(c => c.id !== id);
+  updateCartUI();
+  try { showToast('Eliminado del carrito'); } catch (e) {}
+}
+function updateCartUI() {
+  const count = CART.reduce((s,c) => s + c.qty, 0);
+  document.getElementById('cartCount').textContent = count;
+  const list = document.getElementById('cartItems');
+  list.innerHTML = '';
+  if (CART.length === 0) {
+    list.innerHTML = '<div style="color:var(--text-muted)">El carrito está vacío.</div>';
+  } else {
+    CART.forEach(c => {
+      const row = document.createElement('div');
+      row.style.display = 'flex'; row.style.justifyContent = 'space-between'; row.style.alignItems = 'center'; row.style.gap = '.5rem';
+      row.innerHTML = `<div style="font-size:.92rem">${c.name} <span style=\"color:var(--text-muted);font-size:.82rem\">×${c.qty}</span></div><div style=\"display:flex;gap:.4rem;align-items:center\">` +
+        `<div style=\"font-weight:700;color:var(--gold)\">$${(c.price*c.qty).toLocaleString('en-US',{minimumFractionDigits:2})}</div>` +
+        `<button style=\"background:none;border:none;color:var(--text-muted);cursor:pointer\" onclick=\"removeFromCart('${c.id}')\">Quitar</button></div>`;
+      list.appendChild(row);
+    });
+  }
+  const total = CART.reduce((s,c) => s + c.price * c.qty, 0);
+  document.getElementById('cartTotal').textContent = '$' + total.toLocaleString('en-US',{minimumFractionDigits:2});
+  // show/hide panel if empty
+  try { localStorage.setItem('gm_cart', JSON.stringify(CART)); } catch(e){}
+}
+function toggleCartPanel(open) {
+  const p = document.getElementById('cartPanel');
+  p.style.display = (open===undefined ? (p.style.display === 'none' ? 'block' : 'none') : (open ? 'block' : 'none'));
+}
+
+// wire cart toggle
+document.addEventListener('click', e => {
+  const cartArea = document.getElementById('cartArea');
+  const panel = document.getElementById('cartPanel');
+  if (!cartArea) return;
+  if (e.target.closest && e.target.closest('#cartToggle')) {
+    toggleCartPanel();
+    return;
+  }
+  if (e.target.closest && e.target.closest('#cartPanel')) return;
+  if (panel && panel.style.display === 'block') panel.style.display = 'none';
+});
+document.getElementById('cartClose').addEventListener('click', () => toggleCartPanel(false));
+
+// ── ITEMS ──────────────────────────────────────────────────────────
+// img: Steam CDN hash (class D icon format)
+const ITEMS = [
+  // ── RIFLES ──
+  {
+    id:'r01', tipo:'rifle', arma:'AK-47', skin:'Redline',
+    rareza:'CLASSIFIED', float_value:0.1432, stattrak:true,
+    precio:42.50, stock:3, seed:661,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMIq2c97LxilOiUkO3-OByj_FX9qNb4oe4J1I/?format=webp&fit=cover'
+  },
+  {
+    id:'r02', tipo:'rifle', arma:'AK-47', skin:'Case Hardened',
+    rareza:'MIL_SPEC', float_value:0.1885, stattrak:false,
+    precio:78.30, stock:7, seed:321,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItW9h7LtilOqVkO3-eAtk8VRqs6OcJNeLJg/?format=webp&fit=cover'
+  },
+  {
+    id:'r03', tipo:'rifle', arma:'AK-47', skin:'Fire Serpent',
+    rareza:'COVERT', float_value:0.2105, stattrak:false,
+    precio:1850.00, stock:1, seed:812,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWsOhbKtilOqaEi3u8N23qrCF/?format=webp&fit=cover'
+  },
+  {
+    id:'r04', tipo:'rifle', arma:'M4A4', skin:'Howl',
+    rareza:'COVERT', float_value:0.2891, stattrak:false,
+    precio:3799.00, stock:1, seed:417,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqQOFHl/?format=webp&fit=cover'
+  },
+  {
+    id:'r05', tipo:'rifle', arma:'M4A1-S', skin:'Hot Rod',
+    rareza:'CLASSIFIED', float_value:0.0301, stattrak:false,
+    precio:320.00, stock:2, seed:1,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWdJhbsilO2VkL3-OBtk8VRqs6OcJNGh5Q/?format=webp&fit=cover'
+  },
+  {
+    id:'r06', tipo:'rifle', arma:'AWP', skin:'Dragon Lore',
+    rareza:'COVERT', float_value:0.0651, stattrak:false,
+    precio:8990.00, stock:1, seed:503,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOrj55ybmg/?format=webp&fit=cover'
+  },
+  {
+    id:'r07', tipo:'rifle', arma:'AWP', skin:'Asiimov',
+    rareza:'COVERT', float_value:0.2250, stattrak:true,
+    precio:110.00, stock:9, seed:200,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqN3Rp/?format=webp&fit=cover'
+  },
+  {
+    id:'r08', tipo:'rifle', arma:'AWP', skin:'Medusa',
+    rareza:'COVERT', float_value:0.0890, stattrak:false,
+    precio:2100.00, stock:1, seed:741,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOrk5M4/?format=webp&fit=cover'
+  },
+  // ── PISTOLAS ──
+  {
+    id:'p01', tipo:'pistola', arma:'Desert Eagle', skin:'Blaze',
+    rareza:'CLASSIFIED', float_value:0.0489, stattrak:true,
+    precio:189.75, stock:5, seed:1,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqNz_/?format=webp&fit=cover'
+  },
+  {
+    id:'p02', tipo:'pistola', arma:'Glock-18', skin:'Fade',
+    rareza:'RESTRICTED', float_value:0.0372, stattrak:true,
+    precio:245.00, stock:4, seed:850,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqNWRo/?format=webp&fit=cover'
+  },
+  {
+    id:'p03', tipo:'pistola', arma:'USP-S', skin:'Kill Confirmed',
+    rareza:'COVERT', float_value:0.1102, stattrak:false,
+    precio:55.40, stock:6, seed:190,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOrcpPYf/?format=webp&fit=cover'
+  },
+  {
+    id:'p04', tipo:'pistola', arma:'Desert Eagle', skin:'Printstream',
+    rareza:'CLASSIFIED', float_value:0.0088, stattrak:true,
+    precio:72.00, stock:8, seed:500,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOrm5pZG/?format=webp&fit=cover'
+  },
+  // ── CUCHILLOS ──
+  {
+    id:'k01', tipo:'cuchillo', arma:'Karambit', skin:'Fade',
+    rareza:'CONTRABAND', float_value:0.0123, stattrak:false,
+    precio:1289.99, stock:1, seed:999,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqM7WT/?format=webp&fit=cover'
+  },
+  {
+    id:'k02', tipo:'cuchillo', arma:'Butterfly Knife', skin:'Marble Fade',
+    rareza:'CONTRABAND', float_value:0.0340, stattrak:false,
+    precio:980.00, stock:1, seed:412,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqYrKX/?format=webp&fit=cover'
+  },
+  {
+    id:'k03', tipo:'cuchillo', arma:'M9 Bayonet', skin:'Doppler',
+    rareza:'CONTRABAND', float_value:0.0078, stattrak:false,
+    precio:740.00, stock:2, seed:667,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqYu6T/?format=webp&fit=cover'
+  },
+  {
+    id:'k04', tipo:'cuchillo', arma:'Karambit', skin:'Case Hardened',
+    rareza:'CONTRABAND', float_value:0.1550, stattrak:false,
+    precio:620.00, stock:1, seed:388,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqNWZo/?format=webp&fit=cover'
+  },
+  // ── GUANTES ──
+  {
+    id:'g01', tipo:'guantes', arma:'Sport Gloves', skin:"Pandora's Box",
+    rareza:'CONTRABAND', float_value:0.3612, stattrak:false,
+    precio:2150.00, stock:2, seed:789,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqYumX/?format=webp&fit=cover'
+  },
+  {
+    id:'g02', tipo:'guantes', arma:'Specialist Gloves', skin:'Crimson Kimono',
+    rareza:'CONTRABAND', float_value:0.2213, stattrak:false,
+    precio:880.00, stock:3, seed:501,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOrm5kqE/?format=webp&fit=cover'
+  },
+  {
+    id:'g03', tipo:'guantes', arma:'Moto Gloves', skin:'Polygon',
+    rareza:'CONTRABAND', float_value:0.1620, stattrak:false,
+    precio:310.00, stock:5, seed:322,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOrcpLYf/?format=webp&fit=cover'
+  },
+  // ── SMG ──
+  {
+    id:'s01', tipo:'smg', arma:'MP9', skin:'Wild Lily',
+    rareza:'COVERT', float_value:0.0511, stattrak:false,
+    precio:44.00, stock:6, seed:110,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqN3Ro/?format=webp&fit=cover'
+  },
+  {
+    id:'s02', tipo:'smg', arma:'MP5-SD', skin:'Oxide Oasis',
+    rareza:'MIL_SPEC', float_value:0.1940, stattrak:true,
+    precio:12.50, stock:15, seed:77,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqNzZo/?format=webp&fit=cover'
+  },
+  {
+    id:'s03', tipo:'smg', arma:'UMP-45', skin:'Fade',
+    rareza:'CLASSIFIED', float_value:0.0702, stattrak:false,
+    precio:38.90, stock:4, seed:920,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOrj5kqb/?format=webp&fit=cover'
+  },
+  {
+    id:'s04', tipo:'smg', arma:'PP-Bizon', skin:'High Roller',
+    rareza:'RESTRICTED', float_value:0.3120, stattrak:false,
+    precio:9.75, stock:20, seed:55,
+    img: CDN + '-9a81dlWLwJ2UHBF6TWjuSbfKORuBfkTpKXNs9YT5uO5CJR-M5xfbkdbMFQnUaipIzSBq8Ty2DQYv4oujZCUDv2oUeC0NVR7aghcJZVK3cmpahZ-LXS9lJTyh6h2Y--z3YMItWcJhKmilOqNz_/?format=webp&fit=cover'
+  },
+];
+
+// Fallback local placeholder when CDN images fail (common in sandboxes)
+function imgFallback(img, arma) {
+  img.onerror = null;
+  // Draw a simple weapon silhouette on canvas as SVG data URI
+  const svgMap = {
+    'AK-47':   '🔫', 'M4A4': '🔫', 'M4A1-S': '🔫', 'AWP': '🎯',
+    'Desert Eagle': '🔫', 'Glock-18': '🔫', 'USP-S': '🔫',
+    'Karambit': '🔪', 'Butterfly Knife': '🔪', 'M9 Bayonet': '🔪',
+    'Sport Gloves': '🧤', 'Specialist Gloves': '🧤', 'Moto Gloves': '🧤',
+    'MP9': '🔫', 'MP5-SD': '🔫', 'UMP-45': '🔫', 'PP-Bizon': '🔫',
+  };
+  const emoji = svgMap[arma] || '🔫';
+  img.style.fontSize = '4.5rem';
+  img.style.lineHeight = '1';
+  img.alt = emoji;
+  // replace with span emoji
+  const span = document.createElement('span');
+  span.style.cssText = 'font-size:5rem;line-height:1;filter:drop-shadow(0 6px 18px rgba(0,0,0,.7))';
+  span.textContent = emoji;
+  img.replaceWith(span);
+}
+
+// Float → condition
+function fcond(f) {
+  if (f < 0.07) return 'Factory New';
+  if (f < 0.15) return 'Minimal Wear';
+  if (f < 0.38) return 'Field-Tested';
+  if (f < 0.45) return 'Well-Worn';
+  return 'Battle-Scarred';
+}
+
+// ── BUILD CARD ─────────────────────────────────────────────────────
+function buildCard(item) {
+  const rc = RC[item.rareza];
+  const isRare = ['CLASSIFIED','COVERT','CONTRABAND'].includes(item.rareza);
+  const fp = (item.float_value * 100).toFixed(2);
+  const cond = fcond(item.float_value);
+
+  const card = document.createElement('div');
+  card.className = `card${isRare ? ' rare' : ''}`;
+  card.dataset.tipo = item.tipo;
+  card.dataset.search = (item.arma + ' ' + item.skin).toLowerCase();
+  card.dataset.price = item.precio;
+  card.dataset.float = item.float_value;
+  card.style.setProperty('--rc', rc.color);
+  card.onclick = () => openModal(item);
+
+  const skinPart = item.skin;
+
+  card.innerHTML = `
+    <div class="img-wrap">
+      <img
+        src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+        alt="${item.arma} | ${item.skin}"
+        data-itemid="${item.id}"
+        loading="lazy"
+      />
+    </div>
+    <div class="card-body">
+      <div class="c-weapon">${item.arma}</div>
+      <div class="c-name">${skinPart}</div>
+      <div class="c-meta">
+        <span class="badge-rarity" style="--rc:${rc.color}">${rc.label}</span>
+        ${item.stattrak ? '<span class="badge-st">StatTrak™</span>' : ''}
+      </div>
+      <div class="float-wrap">
+        <div class="float-top"><span>Float · ${cond}</span><span>${item.float_value.toFixed(4)}</span></div>
+        <div class="float-track">
+          <div class="float-fill"></div>
+          <div class="float-pin" style="left:${fp}%"></div>
+        </div>
+      </div>
+      <div class="c-footer">
+        <div class="price">$${item.precio.toLocaleString('en-US',{minimumFractionDigits:2})}</div>
+        <button class="btn-buy" onclick="event.stopPropagation(); addToCart('${item.id}')">Comprar</button>
+      </div>
+    </div>
+  `;
+  return card;
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────
+let activeFilter = 'all';
+let activeSort   = 'default';
+let searchTerm   = '';
+
+const grid  = document.getElementById('grid');
+const empty = document.getElementById('empty');
+
+function render() {
+  let list = ITEMS.filter(i => {
+    const passFilter = activeFilter === 'all' || i.tipo === activeFilter;
+    const passSearch = !searchTerm || i.arma.toLowerCase().includes(searchTerm) || i.skin.toLowerCase().includes(searchTerm);
+    return passFilter && passSearch;
+  });
+
+  if (activeSort === 'price-asc')   list.sort((a,b) => a.precio - b.precio);
+  if (activeSort === 'price-desc')  list.sort((a,b) => b.precio - a.precio);
+  if (activeSort === 'float-asc')   list.sort((a,b) => a.float_value - b.float_value);
+
+  grid.innerHTML = '';
+  list.forEach(i => {
+    const c = buildCard(i);
+    grid.appendChild(c);
+    // after appended, kick off image loading
+    const img = c.querySelector('img[data-itemid]');
+    if (img) loadBestImage(img, i.img, i.arma, i.skin, i.id);
+  });
+
+  empty.classList.toggle('show', list.length === 0);
+  document.getElementById('countLabel').textContent = `${list.length} ítem${list.length!==1?'s':''}`;
+
+  // Update hero stats: items and categories (exclude 'all')
+  const totalItems = ITEMS.length;
+  const categoriesCount = new Set(ITEMS.map(it => it.tipo)).size;
+  document.getElementById('itemsStat').textContent = totalItems;
+  document.getElementById('categoriesStat').textContent = categoriesCount;
+
+  const labels = { all:'Completo', rifle:'Rifles', pistola:'Pistolas', cuchillo:'Cuchillos', guantes:'Guantes', smg:'SMGs' };
+  document.getElementById('activeLabel').textContent = labels[activeFilter] || 'Completo';
+}
+
+// ── FILTER BUTTONS ─────────────────────────────────────────────────
+document.getElementById('navFilters').addEventListener('click', e => {
+  const btn = e.target.closest('.nav-tag');
+  if (!btn) return;
+  document.querySelectorAll('.nav-tag').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.filter;
+  render();
+});
+
+// ── SORT BUTTONS ───────────────────────────────────────────────────
+document.querySelectorAll('.sort-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeSort = btn.dataset.sort;
+    render();
+  });
+});
+
+// ── SEARCH (removed - replaced by cart) ─────────────────────────────
+const _searchEl = document.getElementById('searchInput');
+if (_searchEl) {
+  _searchEl.addEventListener('input', e => {
+    searchTerm = e.target.value.trim().toLowerCase();
+    render();
+  });
+}
+
+// ── MODAL ──────────────────────────────────────────────────────────
+function openModal(item) {
+  const rc = RC[item.rareza];
+  const cond = fcond(item.float_value);
+  document.getElementById('modalBar').style.background = rc.color;
+  document.getElementById('modalBar').style.boxShadow = `0 0 16px ${rc.color}`;
+  const mi = document.getElementById('modalImg');
+  mi.alt = item.arma + ' | ' + item.skin;
+  mi.dataset.itemid = item.id;
+  mi.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+  loadBestImage(mi, item.img, item.arma, item.skin, item.id);
+  // track current item for modal actions
+  window.currentModalItemId = item.id;
+  document.getElementById('modalWeapon').textContent = item.arma + ' · ' + item.tipo.toUpperCase();
+  document.getElementById('modalName').textContent   = item.arma + ' | ' + item.skin;
+  document.getElementById('modalPrice').textContent  = '$' + item.precio.toLocaleString('en-US',{minimumFractionDigits:2});
+  document.getElementById('modalGrid').innerHTML = `
+    <div class="mf"><label>Float Value</label><p class="mono" style="color:#5CDB95">${item.float_value.toFixed(6)}</p></div>
+    <div class="mf"><label>Condición</label><p>${cond}</p></div>
+    <div class="mf"><label>Rareza</label><p style="color:${rc.color}">${rc.label}</p></div>
+    <div class="mf"><label>StatTrak™</label><p style="color:${item.stattrak?'#CE690E':'#6B7A8D'}">${item.stattrak?'Sí ✔':'No'}</p></div>
+    <div class="mf"><label>Pattern Seed</label><p class="mono">#${item.seed}</p></div>
+    <div class="mf"><label>Stock</label><p>${item.stock} unidad${item.stock!==1?'es':''}</p></div>
+    <div class="mf"><label>Item ID</label><p class="mono" style="font-size:.68rem;color:#4A5A6A">${item.id}</p></div>
+    <div class="mf"><label>Precio</label><p style="color:#E8A420;font-size:1.05rem">$${item.precio.toLocaleString('en-US',{minimumFractionDigits:2})}</p></div>
+  `;
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeModal() { document.getElementById('overlay').classList.remove('open'); }
+function maybeClose(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+
+// ── INIT ───────────────────────────────────────────────────────────
+  // Sample professional player profiles (inspirado en profilerr.net)
+  const PROFILES = [
+    { name:'s1mple', team:'NAVI', country:'UA', role:'AWPer', img:'https://ui-avatars.com/api/?name=s1mple&background=0D1117&color=E8EDF4&rounded=true', settings:{dpi:400,sensitivity:0.35,crosshair:'cl_crosshairsize 3; cl_crosshairgap -1',viewmodel:'-1.5,0,1.8'}, weapons:['AWP','AK-47'] },
+    { name:'ZywOo', team:'Vitality', country:'FR', role:'AWPer', img:'https://ui-avatars.com/api/?name=ZywOo&background=0D1117&color=E8EDF4&rounded=true', settings:{dpi:400,sensitivity:0.7,crosshair:'cl_crosshairsize 2; cl_crosshairgap -2',viewmodel:'-2.0,0,1.5'}, weapons:['AWP','Desert Eagle'] },
+    { name:'device', team:'Astralis', country:'DK', role:'Rifler', img:'https://ui-avatars.com/api/?name=device&background=0D1117&color=E8EDF4&rounded=true', settings:{dpi:400,sensitivity:1.0,crosshair:'cl_crosshairsize 2; cl_crosshairgap 0',viewmodel:'-1.0,0,1.6'}, weapons:['AK-47','M4A4'] },
+    { name:'NiKo', team:'G2', country:'BA', role:'Rifler', img:'https://ui-avatars.com/api/?name=NiKo&background=0D1117&color=E8EDF4&rounded=true', settings:{dpi:400,sensitivity:0.55,crosshair:'cl_crosshairsize 2; cl_crosshairgap -1',viewmodel:'-1.8,0,1.6'}, weapons:['AK-47','Desert Eagle'] },
+    { name:'ropz', team:'FaZe', country:'EE', role:'Rifler', img:'https://ui-avatars.com/api/?name=ropz&background=0D1117&color=E8EDF4&rounded=true', settings:{dpi:400,sensitivity:1.2,crosshair:'cl_crosshairsize 1; cl_crosshairgap 0',viewmodel:'-2.0,0,1.7'}, weapons:['M4A1-S','Desert Eagle'] },
+    { name:'b0RUP', team:'Example', country:'US', role:'Support', img:'https://ui-avatars.com/api/?name=b0RUP&background=0D1117&color=E8EDF4&rounded=true', settings:{dpi:400,sensitivity:0.9,crosshair:'cl_crosshairsize 2; cl_crosshairgap -1',viewmodel:'-1.2,0,1.6'}, weapons:['UMP-45','MP9'] },
+    { name:'broky', team:'FaZe', country:'UA', role:'AWPer', img:'https://ui-avatars.com/api/?name=broky&background=0D1117&color=E8EDF4&rounded=true', settings:{dpi:400,sensitivity:0.65,crosshair:'cl_crosshairsize 3; cl_crosshairgap -2',viewmodel:'-1.0,0,1.5'}, weapons:['AWP','Glock-18'] },
+    { name:'coldzera', team:'Retired', country:'BR', role:'Rifler', img:'https://ui-avatars.com/api/?name=coldzera&background=0D1117&color=E8EDF4&rounded=true', settings:{dpi:400,sensitivity:1.0,crosshair:'cl_crosshairsize 2; cl_crosshairgap 0',viewmodel:'-1.6,0,1.6'}, weapons:['AK-47','M4A4'] }
+  ];
+
+  function profileImgFallback(img) {
+    const parent = img.parentElement;
+    const span = document.createElement('span');
+    span.textContent = img.alt ? img.alt.split(' ')[0].slice(0,2).toUpperCase() : 'P';
+    span.style.cssText = 'width:48px;height:48px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:var(--bg-card);color:var(--text-primary);font-weight:700;margin-right:.6rem';
+    img.replaceWith(span);
+  }
+
+  function renderProfiles() {
+    const g = document.getElementById('profilesGrid');
+    g.innerHTML = '';
+    PROFILES.forEach(p => {
+      const card = document.createElement('div');
+      card.style.background = 'var(--bg-card)';
+      card.style.border = '1px solid rgba(255,255,255,.04)';
+      card.style.borderRadius = '8px';
+      card.style.padding = '.85rem';
+      card.innerHTML = `
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">
+          <img src="${p.img}" alt="${p.name}" style="width:48px;height:48px;border-radius:50%;object-fit:cover" onerror="this.onerror=null;profileImgFallback(this)" />
+          <div style="flex:1">
+            <div style="font-weight:700">${p.name} <span style="color:var(--text-muted);font-weight:600">· ${p.team}</span></div>
+            <div style="color:var(--text-muted);font-size:.82rem">${p.country} · ${p.role}</div>
+          </div>
+        </div>
+        <div style="font-size:.85rem;margin-bottom:.6rem"><strong>Weapons:</strong> ${p.weapons.join(', ')}</div>
+        <details style="color:var(--text-muted)"><summary style="cursor:pointer">Mostrar configuración</summary>
+          <div style="margin-top:.5rem;font-size:.82rem;color:var(--text-primary)">
+            <div>DPI: ${p.settings.dpi}</div>
+            <div>Sens: ${p.settings.sensitivity}</div>
+            <div>Crosshair: <span style="color:var(--text-muted);font-size:.78rem">${p.settings.crosshair}</span></div>
+            <div>Viewmodel: <span style="color:var(--text-muted);font-size:.78rem">${p.settings.viewmodel}</span></div>
+          </div>
+        </details>
+      `;
+      g.appendChild(card);
+    });
+  }
+
+  // initial render and profiles
+  // restore cart from localStorage
+  try {
+    const saved = localStorage.getItem('gm_cart');
+    if (saved) CART = JSON.parse(saved);
+  } catch(e) { CART = CART || []; }
+  // build image map for fallback attempts
+  try { buildImageMap(); } catch(e){}
+  render();
+  renderProfiles();
+  updateCartUI();
+
+  // Try to detect which images exist in the GitHub repo and populate IMG_MAP with confirmed filenames.
+  async function populateMapFromRepo() {
+    const base = 'https://raw.githubusercontent.com/ByMykel/counter-strike-image-tracker/main/images/';
+    for (const it of ITEMS) {
+      try {
+        if (IMG_MAP[it.id]) {
+          // already has candidate from buildImageMap
+        }
+        const normalize = s => String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+        const candidates = [];
+        if (IMG_MAP[it.id]) candidates.push(IMG_MAP[it.id]);
+        candidates.push(normalize(it.arma) + '-' + normalize(it.skin) + '.webp');
+        candidates.push(normalize(it.skin) + '.webp');
+        candidates.push(normalize(it.arma) + '.webp');
+        candidates.push(it.id + '.webp');
+
+        for (const fname of candidates) {
+          if (!fname) continue;
+          try {
+            const url = base + fname;
+            const res = await fetch(url, { method: 'HEAD' });
+            if (res && res.ok) {
+              IMG_MAP[it.id] = fname;
+              // update any rendered images for this item
+              document.querySelectorAll(`img[data-itemid="${it.id}"]`).forEach(img => {
+                try {
+                  // only replace if currently pointing at CDN or empty
+                  if (!img.src.includes('raw.githubusercontent.com')) img.src = url;
+                } catch(e){}
+              });
+              // update modal if it's showing this item
+              const mi = document.getElementById('modalImg');
+              if (mi && mi.dataset.itemid === it.id) mi.src = base + fname;
+              break;
+            }
+          } catch(e) {
+            // continue to next candidate
+          }
+        }
+      } catch(e) {}
+    }
+  }
+
+  // run in background
+  populateMapFromRepo();
+
+  // After a short delay, convert any images that still failed to load into emoji fallbacks.
+  function enforceFallbacks() {
+    document.querySelectorAll('img[data-itemid]').forEach(img => {
+      try {
+        const placeholder = img.src && img.src.indexOf('data:image/gif') === 0;
+        if (placeholder || (img.complete && img.naturalWidth === 0)) {
+          imgFallback(img, img.alt && img.alt.split('|')[0].trim());
+        }
+      } catch(e){}
+    });
+    // modal
+    const mi = document.getElementById('modalImg');
+    if (mi) {
+      try { if (mi.complete && mi.naturalWidth === 0) imgFallback(mi, mi.alt && mi.alt.split('|')[0].trim()); } catch(e){}
+    }
+  }
+  setTimeout(enforceFallbacks, 3000);
+  setTimeout(enforceFallbacks, 8000);
+
+  // If you want to force emojis for all items programmatically:
+  function replaceAllWithEmojis() {
+    document.querySelectorAll('img[data-itemid]').forEach(img => { try { imgFallback(img, img.alt && img.alt.split('|')[0].trim()); } catch(e){} });
+    const mi2 = document.getElementById('modalImg'); if (mi2) try { imgFallback(mi2, mi2.alt && mi2.alt.split('|')[0].trim()); } catch(e){}
+  }
+
+  // Toast helper
+  function showToast(msg, ms=2000) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._to);
+    t._to = setTimeout(() => t.classList.remove('show'), ms);
+  }
+</script>
+<div id="toast" class="toast" aria-hidden="true"></div>
+</body>
+</html>
